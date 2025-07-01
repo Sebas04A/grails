@@ -26,21 +26,40 @@ class PropiedadController {
     }
 
     def save_ajax() {
-        def propiedad = params.id ? Propiedad.get(params.id) : new Propiedad()
         println "save_ajax"
-        println "params: ${params}"
+        def propiedad = params.id ? Propiedad.get(params.id) : new Propiedad()
+        // println "params: ${params}"
 
         propiedad.properties = params
+        propiedad.usuario = session.usuario
 
         println "propiedad después de asignar propiedades: ${propiedad.properties}"
 
         if (!propiedad.save(flush: true)) {
             println "Error al guardar la propiedad: ${propiedad.errors}"
             render "no"
-        } else {
-            println "Propiedad guardada correctamente: ${propiedad.properties}"
-            render "ok"
+            return
         }
+        println "Propiedad guardada correctamente: ${propiedad.properties}"
+        params.list('imagenes').eachWithIndex { imgParams, i ->
+        def url = params["imagenes[${i}].urlImagen"]
+        def desc = params["imagenes[${i}].descripcion"]
+
+        if (url) {
+            def img = new ImagenPropiedad(
+                urlImagen: url,
+                descripcion: desc,
+                propiedad: propiedad
+            )
+            if (!img.save(flush: true)) {
+                println "Error al guardar imagen ${i}: ${img.errors}"
+            }
+        }
+    }
+
+        
+        render "ok"
+        
     }
 
     def show_ajax() {
