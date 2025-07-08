@@ -1,6 +1,7 @@
 ---
 grails:
     profile: web
+    version: 3.3.18
     codegen:
         defaultPackage: grailsantiguo
     gorm:
@@ -15,7 +16,7 @@ info:
         grailsVersion: '@info.app.grailsVersion@'
 spring:
     main:
-        banner-mode: "off"
+        banner-mode: 'off'
     groovy:
         template:
             check-template-location: false
@@ -44,22 +45,22 @@ grails:
             csv: text/csv
             form: application/x-www-form-urlencoded
             html:
-              - text/html
-              - application/xhtml+xml
+                - text/html
+                - application/xhtml+xml
             js: text/javascript
             json:
-              - application/json
-              - text/json
+                - application/json
+                - text/json
             multipartForm: multipart/form-data
             pdf: application/pdf
             rss: application/rss+xml
             text: text/plain
             hal:
-              - application/hal+json
-              - application/hal+xml
+                - application/hal+json
+                - application/hal+xml
             xml:
-              - text/xml
-              - application/xml
+                - text/xml
+                - application/xml
     urlmapping:
         cache:
             maxsize: 1000
@@ -92,23 +93,22 @@ dataSource:
     pooled: true
     jmxExport: true
     driverClassName: org.postgresql.Driver
+    dialect: org.hibernate.dialect.PostgreSQLDialect
     username: postgres
     password: 'sebas04'
 
 environments:
     development:
         dataSource:
-            dbCreate: update #create
+            dbCreate: update
             url: jdbc:postgresql://127.0.0.1:5432/pais
-        grails:
-            serverURL: http://127.0.0.1:8080
     test:
         dataSource:
             dbCreate: update
             url: jdbc:postgresql://127.0.0.1:5432/pais
     production:
         dataSource:
-            dbCreate: none
+            dbCreate: update
             url: jdbc:postgresql://127.0.0.1:5432/pais
             properties:
                 jmxEnabled: true

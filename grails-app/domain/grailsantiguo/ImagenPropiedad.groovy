@@ -11,4 +11,7 @@ class ImagenPropiedad {
         urlImagen blank: false
         descripcion nullable: true
     }
+    static mapping = {
+        urlImagen type: "text"
+    }
 }

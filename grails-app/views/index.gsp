@@ -11,58 +11,40 @@
 <div id="hero">
     <div class="hero-content">
         <h1 id="titulo-interno">MiCasa<span>Hoy</span></h1>
-        <div class="search-bar">
+        
+            <g:form controller="propertiesList" action="buscarInicio" method="GET" class="search-bar">
             <div class="search-options">
-                <input type="radio" id="venta" name="option" class="search-radio" checked />
+                <input type="radio" id="venta" name="estado" value="en venta" class="search-radio" checked />
                 <label for="venta" class="search-btn">Venta</label>
 
-                <input type="radio" id="alquiler" name="option" class="search-radio" />
+                <input type="radio" id="alquiler" name="estado" value="alquiler" class="search-radio" />
                 <label for="alquiler" class="search-btn">Alquiler</label>
             </div>
+
             <div class="search-location">
-                <select class="location-select">
-                    <option value="global">Casa</option>
-                    <option value="local">Apartamento</option>
+                <select name="tipo" class="location-select">
+                    <option value="casa">Casa</option>
+                    <option value="departamento">Apartamento</option>
+                    <option value="terreno">Terreno</option>
+                    <option value="local">Local Comercial</option>
                 </select>
-                <input
-                        type="text"
-                        placeholder="¿Dónde? (e.j. Floresta)"
-                        class="search-input"
+
+                <g:textField
+                    type="text"
+                    name="q"
+                    placeholder="¿Dónde? (e.j. Floresta)"
+                    class="search-input"
                 />
-                <button class="search-submit">
+
+                <button type="submit" class="search-submit">
                     <i class="fas fa-search"></i>
                 </button>
             </div>
-        </div>
+        </g:form>
+        
     </div>
 </div>
 
-<main>
-    <section class="featured-properties">
-        <h2>Propiedades Destacadas</h2>
-        <div class="properties-list">
-            <div class="property-item">
-                <img src="images/casa1.jpg" alt="Casa 1" />
-                <h3>Casa Moderna en la Ciudad</h3>
-                <p>Precio: $500,000</p>
-            </div>
-            <div class="property-item">
-                <img src="images/casa2.jpg" alt="Casa 2" />
-                <h3>Casa de Campo en las Montañas</h3>
-                <p>Precio: $350,000</p>
-            </div>
-            <div class="property-item">
-                <img src="images/casa3.jpg" alt="Casa 3" />
-                <h3>Apartamento con Vista al Mar</h3>
-                <p>Precio: $600,000</p>
-            </div>
-        </div>
-    </section>
-</main>
-<script >
-    document.querySelector('.search-submit').addEventListener('click', function() {
-       location.href = '/propiedad/list';
-    });
-</script>
+
 </body>
 </html>

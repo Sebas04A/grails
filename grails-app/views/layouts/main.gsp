@@ -3,6 +3,9 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+
     <title>
         <g:layoutTitle default="MiCasaHoy"/>
     </title>
@@ -31,7 +34,7 @@
 
 <body>
 
-<div id="btn-usuario"><i class="fas fa-user"></i> Perfil</div>
+
 
 <div id="mobile-menu" class="hidden">
     <ul>
@@ -44,7 +47,7 @@
     <p id="titulo">Mi Casa Hoy</p>
     <ul id="nav-list">
         <li><a id="actual" href="/">Inicio</a></li>
-        <li><a href="/propiedad/list">Buscar Propiedades</a></li>
+        <li><a href="/propertiesList">Buscar Propiedades</a></li>
         
     </ul>
     <div class="d-flex align-items-center h-100">
@@ -65,63 +68,63 @@
 
     <div id="hamburguesa" onclick="toggleMenu()">&#9776;</div>
 </nav>
-<g:layoutBody/>
 
-<footer class="footer">
+<div style="min-height: calc(100vh - 10rem)">
+    <g:layoutBody/>
+</div>
+
+<footer class="footer" style="height:4rem">
     <p>&copy; 2024 Venta de Casas. Todos los derechos reservados.</p>
 </footer>
+</div>
 
-<div id="loginForm">
-    <div id="container-modo-oscuro">
-        <p>Modo Oscuro:</p>
-        <div class="dark-mode">
-            <div class="circle">
-                <ion-icon class="sun" name="sunny"></ion-icon>
-                <ion-icon class="moon" name="moon"></ion-icon>
-            </div>
-        </div>
-    </div>
-    <div id="contenedor-iniciar-sesion">
-        <h2>Iniciar Sesión</h2>
-        <form id="form-iniciar-sesion">
-            <label for="username">Usuario</label>
-            <input
-                    type="text"
-                    id="username"
-                    name="username"
-                    placeholder="Ingresa tu usuario"
-                    required
-            />
+<g:if test="${session.usuario}">
+    <div id="btn-usuario"><i class="fas fa-user"></i> Perfil</div>
+</g:if>
+<div id="loginForm" class='d-flex flex-column align-items-center justify-content-center'>
 
-            <label for="password">Contraseña</label>
-            <input
-                    type="password"
-                    id="password"
-                    name="password"
-                    placeholder="Ingresa tu contraseña"
-                    required
-            />
-
-            <button id="btn-iniciar-sesion" type="submit">Entrar</button>
-        </form>
-    </div>
-    <div id="contenedor-sesion">
+    
+    <div id="contenedor-sesion" class="card">
         <ul class="menu-list">
-            <li>
-                <a href="#mis-me-gusta" class="menu-item"
-                ><ion-icon name="heart"></ion-icon> Mis Me Gusta</a
-                >
-            </li>
-            <li>
-                <a href="#mis-chats" class="menu-item"
-                ><ion-icon name="chatbubbles"></ion-icon> Mis Chats</a
-                >
-            </li>
-            <li>
-                <a href="#mis-propiedades" class="menu-item"
-                ><ion-icon name="home"></ion-icon> Mis Propiedades</a
-                >
-            </li>
+            <g:if test="${session.usuario}">
+                <li>
+                    <a href="/favorito" class="menu-item"
+                    > <i class ="fas fa-heart m-2"></i>
+                       Mis Favoritos</a
+                    >
+                </li>
+            </g:if>
+            <g:if test="${session.usuario?.rol == "admin"}">
+                <li>
+                    <a href="/propiedad/panel_admin" class="menu-item"
+                    >Panel de admin</a
+                    >
+                </li>
+            </g:if>
+            <g:if test="${session.usuario?.rol == "vendedor"}">
+                <li>
+                    <a href="/propiedad/list" class="menu-item"
+                    ><i class="fas fa-home"></i>
+                    Gestionar Propiedades</a
+                    >
+                </li>
+            </g:if>
+            <g:if test="${session.usuario?.rol == "admin"}">
+                <li>
+                    <a href="/estadisticas" class="menu-item"
+                    ><i class="fas fa-chart-bar mr-2
+                    "></i>
+                    Estadísticas</a
+                    >
+                </li>
+                <li>
+                    <a href="/dashboard" class="menu-item"
+                    ><i class="fas fa-tachometer-alt mr-2"></i>
+                    Dashboard</a
+                    >
+                </li>
+            </g:if>
+            
         </ul>
     </div>
 </div>
@@ -135,27 +138,13 @@
 
 <script>
     function toggleMenu() {
-        const menu = document.getElementById("mobile-menu");
-        menu.classList.toggle("hidden");
-        menu.classList.addClass("active");
+        $("#mobile-menu").toggleClass("hidden");
+        $("#mobile-menu").toggleClass("active");
     }
-
-    document.getElementById("btn-usuario").addEventListener("click", function () {
-       $("#loginForm").toggleClass("active");
+    $("#btn-usuario").click(function () {
+        $("#loginForm").toggleClass("active");
     });
-
-    document.querySelector(".dark-mode").addEventListener("click", function () {
-        document.body.classList.toggle("dark-mode");
-    });
-    document.getElementById("form-iniciar-sesion").addEventListener("submit", function (event) {
-        event.preventDefault();
-        const username = document.getElementById("username").value;
-        const password = document.getElementById("password").value;
-
-        // Aquí puedes agregar la lógica para autenticar al usuario
-        console.log("Usuario:", username, "Contraseña:", password);
-    });
-
 </script>
+
 </body>
 </html>
