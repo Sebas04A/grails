@@ -109,7 +109,11 @@ environments:
     production:
         dataSource:
             dbCreate: update
-            url: jdbc:postgresql://127.0.0.1:5432/pais
+            url: jdbc:postgresql://gondola.proxy.rlwy.net:11963/railway
+            username: postgres
+            password: aSqYfPOhFjBwPdsSbTGSLJBcmukAEPWd
+            driverClassName: org.postgresql.Driver
+            dialect: org.hibernate.dialect.PostgreSQLDialect
             properties:
                 jmxEnabled: true
                 initialSize: 5
